@@ -10,7 +10,6 @@ exports.content_create = function (req, res) {
             id_content: req.body.id_content,
             name_user: req.body.name_user,
             content: req.body.content,
-            date_content: Date.now,
             image_prof: req.body.image_prof,
             review: req.body.review
         }
@@ -18,7 +17,7 @@ exports.content_create = function (req, res) {
 
     content.save(function (err) {
         if (err) {
-            return next(err);
+            return console.log(err);
         }
         res.send('Content created successfully')
     })
