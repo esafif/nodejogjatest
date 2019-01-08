@@ -4,6 +4,13 @@ exports.test = function (req, res) {
     res.send('Greetings from the Test controller!');
 };
 
+exports.content_read = function(req, res){
+    content_model.findById(req.params.id, function(err, content){
+        if(err) return next(err);
+        res.send(content)
+    })
+}
+
 exports.content_create = function (req, res) {
     let content = new content_model(
         {
