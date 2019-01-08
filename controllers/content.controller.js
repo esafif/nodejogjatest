@@ -1,7 +1,10 @@
 const content_model = require('../models/usercontent.model');
 
 exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
+    content_model.find({}, function(err, content){
+        if(err) return next(err);
+        res.send(content)
+    })
 };
 
 exports.content_read = function(req, res){
@@ -10,6 +13,20 @@ exports.content_read = function(req, res){
         res.send(content)
     })
 }
+
+exports.content_delete = function (req, res) {
+    content_model.findByIdAndRemove(req.params.id, function (err) {
+        if (err) return next(err);
+        res.send('Deleted successfully!');
+    })
+};
+
+exports.content_update = function (req, res) {
+    content_model.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, content) {
+        if (err) return next(err);
+        res.send('Content udpated.');
+    });
+};
 
 exports.content_create = function (req, res) {
     let content = new content_model(
